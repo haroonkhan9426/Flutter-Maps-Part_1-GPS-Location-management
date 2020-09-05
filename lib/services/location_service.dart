@@ -6,6 +6,10 @@ class LocationService {
 
   LocationService(this.context);
 
+  ///
+  /// getCurrentLocation first checks location permissions if enabled,
+  /// it requests to get user [currentLocation] and then return it.
+  ///
   getCurrentLocation() async {
     await checkPermissionStatus();
 //    await checkGpsService();
@@ -26,6 +30,10 @@ class LocationService {
     LocationPermission permission = await checkPermission();
     if (permission == LocationPermission.denied ||
         permission == LocationPermission.deniedForever) {
+      ///
+      /// [requestPermission] is provided by geoLocator and
+      /// It request for user to provide permissions using system dialog
+      ///
       await requestPermission();
     }
   }
