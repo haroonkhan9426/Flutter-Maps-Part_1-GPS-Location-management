@@ -26,14 +26,17 @@ class LocationService {
     return stream;
   }
 
+  ///
+  /// [checkPermissionStatus] checks if user has not provided location
+  /// access permissions using [checkPermission] provided by geolocator.
+  /// If permissions status is [denied] then it request for permission using
+  /// [requestPermission] which is provided by geoLocator and
+  /// It request for user to provide permissions using system dialog.
+  ///
   checkPermissionStatus() async {
     LocationPermission permission = await checkPermission();
     if (permission == LocationPermission.denied ||
         permission == LocationPermission.deniedForever) {
-      ///
-      /// [requestPermission] is provided by geoLocator and
-      /// It request for user to provide permissions using system dialog
-      ///
       await requestPermission();
     }
   }
